@@ -1,0 +1,73 @@
+*** Domanda n. 1 ***
+
+La classe <class 'base_model.BaseModel'> è stata definita
+
+*** Domanda n. 2 ***
+
+--- ORM class Magazzino'> (tablename: magazzino)
+
+codm --> magazzino.codm
+indirizzo --> magazzino.indirizzo
+citta --> magazzino.citta
+
+--- ORM class Prodotto'> (tablename: prodotto)
+
+codp --> prodotto.codp
+nome --> prodotto.nome
+categoria --> prodotto.categoria
+
+--- ORM class Inventario'> (tablename: inventario)
+
+prodotto --> inventario.prodotto
+magazzino --> inventario.magazzino
+quantita --> inventario.quantita
+prezzo --> inventario.prezzo
+
+Dati M01 (uso __call__): {'codm': 'M01', 'indirizzo': 'Via Giove 14'}
+
+Dati M01 (uso __str__): ('M01', 'Via Giove 14', 'Roma')
+
+*** Domanda n. 3 ***
+
+--- Prodotti nel magazzino 'M05' in quantità superiore alle 30 unità ---
+
+('P22', 'frigo', 'elettrodomestici', 45)
+
+*** Domanda n. 4 ***
+
+--- Prodotti disponibili al magazzino 'M01' ---
+
+('alimentari', 'P06', 50)
+('alimentari', 'P07', 400)
+('elettrodomestici', 'P20', 10)
+
+*** Domanda n. 5 ***
+
+--- Prodotti assenti dai magazzini (sol. a) ---
+
+('P27', 'burro', 'alimentari')
+
+--- Prodotti assenti dai magazzini (sol. b) ---
+
+('P27', 'burro', 'alimentari')
+
+*** Domanda n. 6 ***
+
+--- Elettrodomestici assenti in qualche magazzino ---
+
+('P20', 'M04')
+('P20', 'M05')
+('P20', 'M17')
+('P20', 'M18')
+('P22', 'M01')
+('P22', 'M11')
+('P22', 'M17')
+('P22', 'M18')
+
+*** Domanda n. 7 ***
+
+--- Prodotti non disponibili in almeno 60 unità complessive ---
+
+('P06', 50)
+('P20', 25)
+('P27', 0)

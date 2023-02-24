@@ -1,0 +1,80 @@
+*** Domanda n. 1 ***
+
+SQL query con stringa...
+('M01', 'Via Giove 14', 'Roma')
+('M04', 'Via Venere 5', 'Cagliari')
+('M05', 'Via Marte 27', 'Milano')
+('M11', 'Via Saturno 67', 'Milano')
+('M17', 'Via Plutone 34', 'Roma')
+('M18', 'Via Marte 76', 'Cagliari')
+
+SQL query con istanze della classe 'text'...
+('M01', 'Via Giove 14', 'Roma')
+('M04', 'Via Venere 5', 'Cagliari')
+('M05', 'Via Marte 27', 'Milano')
+('M11', 'Via Saturno 67', 'Milano')
+('M17', 'Via Plutone 34', 'Roma')
+('M18', 'Via Marte 76', 'Cagliari')
+
+*** Domanda n. 2 ***
+
+*** Table: 'magazzino' ***
+magazzino.codm
+magazzino.indirizzo
+magazzino.citta
+
+*** Table: 'prodotto' ***
+prodotto.codp
+prodotto.nome
+prodotto.categoria
+
+*** Table: 'inventario' ***
+inventario.magazzino
+inventario.prodotto
+inventario.quantita
+inventario.prezzo
+
+*** Domanda n. 3 ***
+
+--- Prodotti nel magazzino 'M05' in quantità superiore alle 30 unità ---
+
+('P22', 'frigo', 'elettrodomestici', 45)
+
+*** Domanda n. 4 ***
+
+--- Prodotti disponibili al magazzino 'M01' ---
+
+('alimentari', 'P06', 50)
+('alimentari', 'P07', 400)
+('elettrodomestici', 'P20', 10)
+
+*** Domanda n. 5 ***
+
+--- Prodotti assenti dai magazzini (sol. a) ---
+
+('P27', 'burro', 'alimentari')
+
+--- Prodotti assenti dai magazzini (sol. b) ---
+
+('P27', 'burro', 'alimentari')
+
+*** Domanda n. 6 ***
+
+--- Elettrodomestici assenti in qualche magazzino ---
+
+('P20', 'M04')
+('P20', 'M05')
+('P20', 'M17')
+('P20', 'M18')
+('P22', 'M01')
+('P22', 'M11')
+('P22', 'M17')
+('P22', 'M18')
+
+*** Domanda n. 7 ***
+
+--- Prodotti non disponibili in almeno 60 unità complessive ---
+
+('P06', 50)
+('P20', 25)
+('P27', 0)

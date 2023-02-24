@@ -1,0 +1,120 @@
+-- *** Domanda n. 1 ***
+
+   -- Aggiungere righe in tabella 'prodotto'
+
+   insert into prodotto ( codP, nome, categoria )
+     values
+       ('P33','TV Led 55','elettrodomestici'),
+       ('P15','Laptop i9','informatica'),
+       ('P02','Condizionatore G4','elettrodomestici') ;
+
+   -- Aggiungere righe in tabella 'inventario'
+
+   insert into inventario ( magazzino, prodotto, quantita, prezzo )
+     values
+       ('M01', 'P33', 10, 499.0),
+	   ('M05', 'P33', 5, 499.0),
+	   ('M11', 'P15', 8, 649.0),
+	   ('M17', 'P02', 4, 287.0) ;
+
+-- *** Domanda n. 2 ***
+
+   -- Aumentare il prezzo degli elettrodomestici in inventario del 2.5%.
+
+   update inventario
+     set prezzo = 1.025 * prezzo -- aumento del 2.5%
+     from prodotto
+     where inventario.prodotto = prodotto.codp and
+           prodotto.categoria = 'elettrodomestici' ; 
+
+   -- Reverse the update... (DA VERIFICARE)
+
+   update inventario
+     set prezzo = (0.975 / 1.025) * prezzo 
+     from prodotto
+     where inventario.prodotto = prodotto.codp and
+           prodotto.categoria = 'elettrodomestici' ; 
+           
+-- *** Domanda n. 3 ***
+
+   -- Prodotti nel magazzino 'M05' in quantità > 30
+   
+   select prodotto.*, inventario.quantita
+     from inventario, prodotto
+     where inventario.prodotto = prodotto.codp and
+           inventario.magazzino = 'M05' and inventario.quantita > 30 ;
+
+-- *** Domanda n. 4 ***
+
+   -- Prodotti del magazzino 'M05' ordinando per categoria (ascendente)
+
+   select P.categoria, P.codp, I.quantita
+     from prodotto as P, inventario as I
+     where I.prodotto = P.codp and I.magazzino = 'M01'
+     order by P.categoria, P.codp ; -- ASC is by default
+     
+-- *** Domanda n. 5 ***
+
+   -- Prodotti al momento non presenti in alcun magazzino
+
+   select * -- Mediante "inner" select-from (subquery)
+     from prodotto as P
+     where P.codp not in ( select distinct inventario.prodotto
+                             from inventario ) ; 
+
+ codp | nome  | categoria  
+------+-------+------------
+ P27  | burro | alimentari
+(1 row)
+   
+   select * from prodotto -- Mediante operazioni insiemistiche...
+   except select distinct P.*
+     from inventario as I join prodotto as P on I.prodotto = P.codp ;
+
+ codp | nome  | categoria  
+------+-------+------------
+ P27  | burro | alimentari
+(1 row)
+
+-- *** Domanda n. 6 ***
+
+   -- Elettrodomestici non presenti in qualche magazzino 
+   -- (per ogni prodotto indicare i magazzini che ne sono sprovvisti)
+
+   ( select codp as prodotto, codm as magazzino
+       from prodotto, magazzino 
+       where prodotto.categoria = 'elettrodomestici'
+     except select prodotto, magazzino
+              from prodotto, inventario
+              where prodotto.categoria = 'elettrodomestici' )
+     order by prodotto, magazzino ;
+
+-- *** Domanda n. 7 ***
+
+   -- Prodotti non disponibili in almeno 60 unità complessive
+   
+   -- Soluzione con "inner select"
+   
+      select prodotto, sum(quantita) as totale
+       from ( select P.codp as prodotto,
+                   case when magazzino is NULL then 0 else sum(quantita) end as quantita
+                from prodotto as P left outer join 
+                     inventario as I on P.codp = I.prodotto 
+                group by ( P.codp, I.magazzino ) ) as disponibilita
+       group by ( prodotto )
+       having sum(quantita) < 60 
+       order by ( prodotto ) ;
+
+   -- Soluzione con view
+
+   create view disponibilita as
+     select P.codp as prodotto,
+            case when magazzino is NULL then 0 else sum(quantita) end as quantita
+     from prodotto as P left outer join 
+          inventario as I on P.codp = I.prodotto group by ( P.codp, I.magazzino ) ;
+
+   select prodotto, sum(quantita) as totale
+     from disponibilita
+     group by ( prodotto ) 
+     having sum(quantita) < 60
+     order by ( prodotto ) ;

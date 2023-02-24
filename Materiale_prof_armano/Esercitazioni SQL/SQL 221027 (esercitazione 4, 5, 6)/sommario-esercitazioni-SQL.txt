@@ -1,0 +1,31 @@
+*** Esercitazione 1
+
+Definizione e modifica di uno schema relazionale
+
+*** Esercitazione 2
+
+Interrogazioni elementari (dati estratti da una sola tabella)
+Interrogazioni che implicano un join tra due tabelle
+
+*** Esercitazione 3
+
+Interrogazioni con join multipli
+Interrogazioni nidificate
+
+*** Esercitazione 4
+
+Interrogazioni con join multipli
+Interrogazioni nidificate
+Funzioni aggregate e raggruppamento
+
+*** Esercitazione 5
+
+Interrogazioni con join multipli
+Interrogazioni nidificate
+Funzioni aggregate e raggruppamento
+Comandi di aggiornamento
+
+*** Esercitazione 6
+
+Definizione di viste
+Uso delle viste nelle interrogazioni

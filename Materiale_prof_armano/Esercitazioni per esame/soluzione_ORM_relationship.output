@@ -1,0 +1,47 @@
+*** Domanda n. 2R (classi con relazioni) ***
+
+--- ORM class <class '__main__.Magazzino'> (tablename: magazzino)
+
+codm --> magazzino.codm
+indirizzo --> magazzino.indirizzo
+citta --> magazzino.citta
+
+Relations:
+lista_prodotti --> Magazzino.lista_prodotti
+
+--- ORM class <class '__main__.Prodotto'> (tablename: prodotto)
+
+codp --> prodotto.codp
+nome --> prodotto.nome
+categoria --> prodotto.categoria
+
+Relations:
+lista_magazzini --> Prodotto.lista_magazzini
+
+--- ORM class <class '__main__.Inventario'> (tablename: inventario)
+
+prodotto --> inventario.prodotto
+magazzino --> inventario.magazzino
+quantita --> inventario.quantita
+prezzo --> inventario.prezzo
+
+*** Domanda n. 5R ***
+
+--- Prodotti assenti dai magazzini ---
+
+('P27', 'burro', 'alimentari')
+
+*** Domanda n. 6R ***
+
+--- Elettrodomestici assenti in qualche magazzino ---
+
+('P20', ['M04', 'M05', 'M17', 'M18'])
+('P22', ['M01', 'M11', 'M17', 'M18'])
+
+*** Domanda n. 7R ***
+
+--- Prodotti con disponibilità inferiore alle 60 unità ---
+
+('P06', 50)
+('P20', 25)
+('P27', 0)
